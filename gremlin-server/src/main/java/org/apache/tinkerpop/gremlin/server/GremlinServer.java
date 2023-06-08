@@ -376,7 +376,8 @@ public class GremlinServer {
         if (args.length > 0)
             file = args[0];
         else
-            file = "conf/gremlin-server.yaml";
+            //file = "conf/gremlin-server.yaml";
+            file = "conf/gremlin-server-rest-modern.yaml"; // 使用HTTP
 
         final Settings settings;
         try {
