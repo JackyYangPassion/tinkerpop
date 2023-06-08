@@ -16,6 +16,7 @@ public class TinkerGraphMain {
         marko.addEdge("created", jay, "weight", 0.7d);
         GraphTraversalSource g = graph.traversal();
 
+        // like gremlin g.V().has("name", "marko").out("created").values("height");
         GraphTraversal allV = g.V();
         GraphTraversal hasName = allV.has("name", "marko");
         GraphTraversal outCreated = hasName.out("created");
