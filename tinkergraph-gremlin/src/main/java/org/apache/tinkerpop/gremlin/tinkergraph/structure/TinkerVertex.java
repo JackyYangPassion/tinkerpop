@@ -116,6 +116,7 @@ public final class TinkerVertex extends TinkerElement implements Vertex {
             final List<VertexProperty> list = this.properties.getOrDefault(key, new ArrayList<>());
             list.add(vertexProperty);
             this.properties.put(key, list);
+            // 判断是否需要更新索引
             TinkerHelper.autoUpdateIndex(this, key, value, null);
             ElementHelper.attachProperties(vertexProperty, keyValues);
             return vertexProperty;

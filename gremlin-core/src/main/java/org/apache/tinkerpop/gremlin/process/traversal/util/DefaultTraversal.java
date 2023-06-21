@@ -59,6 +59,7 @@ public class DefaultTraversal<S, E> implements Traversal.Admin<S, E> {
     protected transient TraversalSource g;
     protected List<Step> steps = new ArrayList<>();
     // steps will be repeatedly retrieved from this traversal so wrap them once in an immutable list that can be reused
+    // 翻译成中文：步骤将从此遍历中重复检索，因此将它们一次包装在不可变列表中，可以重复使用
     protected List<Step> unmodifiableSteps = Collections.unmodifiableList(steps);
     protected TraversalParent parent = EmptyStep.instance();
     protected TraversalSideEffects sideEffects = new DefaultTraversalSideEffects();
@@ -194,6 +195,10 @@ public class DefaultTraversal<S, E> implements Traversal.Admin<S, E> {
         return more;
     }
 
+    //解释下 next() 方法的逻辑:
+    // 首先判断是否已经关闭，如果已经关闭则抛出异常，
+    // 否则调用 applyStrategies() 方法，该方法会应用所有的 TraversalStrategy，
+    // 然后调用 finalEndStep.next() 方法获取下一个元素，如果没有元素则抛出异常，否则返回元素。
     @Override
     public E next() {
         // if the traversal is closed then resources are released and there is nothing else to iterate

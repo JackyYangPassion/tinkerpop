@@ -65,8 +65,21 @@ import org.apache.tinkerpop.gremlin.util.function.TraverserSetSupplier;
  * OLTP traversals leverage an iterator and are executed within a single JVM (with data access allowed to be remote).
  * OLAP traversals leverage {@link GraphComputer} and are executed between multiple JVMs (and/or cores).
  *
+ *
  * @author Marko A. Rodriguez (http://markorodriguez.com)
  */
+//请将以上注释内容翻译成中文 by GitHub Copilot
+
+/**
+ * Traversal表示对图的一个有向遍历。
+ * 这是所有遍历的基本接口，其中每个扩展接口都被视为一个特定于领域的语言。
+ * 例如，GraphTraversal是一个特定于领域的语言，用于使用“图形概念”（例如顶点，边缘）遍历图形。
+ * 另一个示例可能使用“社会概念”（例如人，城市，工件）来表示图。
+ * 遍历以两种方式之一进行评估：基于迭代器的OLTP或基于GraphComputer的OLAP。
+ * OLTP遍历使用迭代器，并在单个JVM中执行（允许数据访问远程）。
+ * OLAP遍历使用GraphComputer，并在多个JVM（和/或内核）之间执行。
+ *
+ **/
 public interface Traversal<S, E> extends Iterator<E>, Serializable, Cloneable, AutoCloseable {
 
     public static class Symbols {
