@@ -100,6 +100,7 @@ public final class TinkerGraphStep<S, E extends Element> extends GraphStep<S, E>
         else if (this.ids.length > 0)
             iterator = this.iteratorList(graph.vertices(this.ids));
         else
+            //判断是否有索引过滤
             iterator = (null == indexedContainer ?
                     this.iteratorList(graph.vertices()) :
                     IteratorUtils.filter(TinkerHelper.queryVertexIndex(graph, indexedContainer.getKey(), indexedContainer.getPredicate().getValue()).iterator(),
@@ -129,13 +130,27 @@ public final class TinkerGraphStep<S, E extends Element> extends GraphStep<S, E>
                     StringFactory.stepString(this, this.returnClass.getSimpleName().toLowerCase(), Arrays.toString(this.ids), this.hasContainers);
     }
 
+    /**
+     * 此方法 主要实现以下语句中过滤条件
+     * 1. g.V().has('name','marko')
+     * 2. g.V('1','2')
+     * 3. g.E().has('weight',gt(0.5))
+     * 4. g.E('e_id1','e_id2')
+     * @param iterator
+     * @return
+     * @param <E>
+     */
     private <E extends Element> Iterator<E> iteratorList(final Iterator<E> iterator) {
         final List<E> list = new ArrayList<>();
 
         try {
+            // 如果此处Iterator 封装了底层查询，每一次都对应一次RPC请求的话，很费时间；
+            // 如果只是遍历内存，则不存在此问题。
+            // 需要进一步看下HugeGraph/HgraphDB的实现
             while (iterator.hasNext()) {
                 final E e = iterator.next();
                 try {
+                    //此处具体实现了 has 算子的过滤，如果满足条件，就加入到 list 中
                     if (HasContainer.testAll(e, this.hasContainers))
                         list.add(e);
                 } catch (GremlinTypeErrorException ex) {
@@ -157,6 +172,7 @@ public final class TinkerGraphStep<S, E extends Element> extends GraphStep<S, E>
             CloseableIterator.closeIterator(iterator);
         }
 
+        //疑问：此处已经在类方法内部将数据装载到 list 中，为什么还要返回一个迭代器呢？
         return new TinkerGraphIterator<>(list.iterator());
     }
 

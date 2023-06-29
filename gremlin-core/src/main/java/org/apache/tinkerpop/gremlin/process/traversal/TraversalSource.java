@@ -47,6 +47,7 @@ import java.util.function.UnaryOperator;
  * @author Marko A. Rodriguez (http://markorodriguez.com)
  * @author Stephen Mallette (http://stephen.genoprime.com)
  */
+
 public interface TraversalSource extends Cloneable, AutoCloseable {
 
     /**

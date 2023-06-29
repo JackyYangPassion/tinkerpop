@@ -40,6 +40,8 @@ public final class TinkerGraphStepStrategy extends AbstractTraversalStrategy<Tra
     private TinkerGraphStepStrategy() {
     }
 
+    //请解释下apply 方法代码逻辑
+    //答：该方法实现了优化策略，主要是针对HasStep,GraphStep,NoOpBarrierStep这几个步骤的优化
     @Override
     public void apply(final Traversal.Admin<?, ?> traversal) {
         if (TraversalHelper.onGraphComputer(traversal))

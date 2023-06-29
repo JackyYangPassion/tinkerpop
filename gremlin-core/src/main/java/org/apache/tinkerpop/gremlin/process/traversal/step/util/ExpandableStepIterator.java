@@ -53,7 +53,7 @@ public final class ExpandableStepIterator<S> implements Iterator<Traverser.Admin
             return this.traverserSet.remove();
         /////////////
         if (this.hostStep.getPreviousStep().hasNext())
-            return this.hostStep.getPreviousStep().next();
+            return this.hostStep.getPreviousStep().next();//此处调用了上一个step的next方法
         /////////////
         return this.traverserSet.remove();
     }

@@ -24,15 +24,17 @@ public class TinkerGraphMain {
         //创建遍历器
         GraphTraversalSource g = graph.traversal();
 
-        //g.V().has("name","marko").out("created").values("name");
 
         // like gremlin g.V().has("name", "marko").out("created").values("height");
         GraphTraversal allV = g.V();
-        GraphTraversal hasName = allV.has("name", "marko");
-        GraphTraversal outCreated = hasName.limit(10);
+        GraphTraversal hasName = allV.has("name", "marko");//1. 此处在什么地方过滤
+        GraphTraversal outCreated = hasName.out("created");//2. 同样下推到什么地方
+        GraphTraversal valueName = outCreated.values("height");
+        GraphTraversal outLimit = valueName.limit(10);
+        System.out.println(outLimit.next());
 //        GraphTraversal valueName = outCreated.values("height");
-        while (hasName.hasNext()){
-               System.out.println(hasName.next());
-        }
+//        while (hasName.hasNext()){
+//            System.out.println(outLimit.next());
+//        }
     }
 }

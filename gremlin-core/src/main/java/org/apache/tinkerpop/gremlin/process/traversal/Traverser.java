@@ -38,6 +38,13 @@ import java.util.function.Function;
  *
  * @author Marko A. Rodriguez (http://markorodriguez.com)
  */
+
+//请将以上注释翻译成中文
+//Traverser表示流经遍历的对象的当前状态。
+//遍历器维护对当前对象的引用，遍历器本地“麻袋”，遍历全局副作用，批量计数和路径历史记录。
+//根据遍历的语义和开发人员对空间/时间优化的需求，可以存在不同类型的遍历器。
+
+
 public interface Traverser<T> extends Serializable, Comparable<Traverser<T>>, Cloneable {
 
     /**

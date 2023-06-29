@@ -119,6 +119,7 @@ public class DefaultTraversal<S, E> implements Traversal.Admin<S, E> {
         return this.generator;
     }
 
+    //你是一个开发人员，请解释下applyStrategies 方法代码逻辑
     @Override
     public void applyStrategies() throws IllegalStateException {
         if (this.locked) throw Traversal.Exceptions.traversalIsLocked();
@@ -208,7 +209,7 @@ public class DefaultTraversal<S, E> implements Traversal.Admin<S, E> {
         try {
             if (!this.locked) this.applyStrategies();
             if (this.lastTraverser.bulk() == 0L)
-                this.lastTraverser = this.finalEndStep.next();
+                this.lastTraverser = this.finalEndStep.next();//此处按照顺序执行了所有的算子
             this.lastTraverser.setBulk(this.lastTraverser.bulk() - 1L);
             return this.lastTraverser.get();
         } catch (final FastNoSuchElementException e) {

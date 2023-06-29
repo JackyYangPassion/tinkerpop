@@ -162,6 +162,13 @@ public final class TinkerVertex extends TinkerElement implements Vertex {
                 edgeIterator;
     }
 
+    //请解释下vertices方法的实现原理
+    // 1. 首先判断graph是否为TinkerGraph，如果不是则调用TinkerHelper.getVertices方法返回一个迭代器。
+    // 2. 如果是TinkerGraph，则判断是否在计算模式下，如果是则返回一个迭代器，该迭代器包含两个迭代器：
+    //    一个迭代器包含所有的OUT方向的边，另一个迭代器包含所有的IN方向的边。
+    // 3. 如果不是计算模式，则调用TinkerHelper.getVertices方法返回一个迭代器。
+    // 4. 迭代器的实现原理请参考TinkerHelper.getVertices方法。
+
     @Override
     public Iterator<Vertex> vertices(final Direction direction, final String... edgeLabels) {
         return TinkerHelper.inComputerMode(this.graph) ?

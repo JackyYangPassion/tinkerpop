@@ -147,7 +147,7 @@ public abstract class AbstractStep<S, E> implements Step<S, E> {
             try {
                 while (true) {
                     if (Thread.interrupted()) throw new TraversalInterruptedException();
-                    this.nextEnd = this.processNextStart();
+                    this.nextEnd = this.processNextStart();//除了Graph_Step 其余的都是空
                     if (this.nextEnd.bulk() > 0)
                         return true;
                     else

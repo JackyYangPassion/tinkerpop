@@ -74,7 +74,9 @@ import static org.apache.tinkerpop.gremlin.tinkergraph.services.TinkerServiceReg
 public final class TinkerGraph implements Graph {
 
     static {
-        TraversalStrategies.GlobalCache.registerStrategies(TinkerGraph.class, TraversalStrategies.GlobalCache.getStrategies(Graph.class).clone().addStrategies(
+        TraversalStrategies.GlobalCache.registerStrategies(
+                TinkerGraph.class,
+                TraversalStrategies.GlobalCache.getStrategies(Graph.class).clone().addStrategies(
                 TinkerGraphStepStrategy.instance(),
                 TinkerGraphCountStrategy.instance()));
     }

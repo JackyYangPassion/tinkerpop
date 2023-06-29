@@ -66,6 +66,33 @@ public class GraphStep<S, E extends Element> extends AbstractStep<S, E> implemen
         this.returnClass = returnClass;
         this.ids = (ids != null && ids.length == 1 && ids[0] instanceof Collection) ? ((Collection) ids[0]).toArray(new Object[((Collection) ids[0]).size()]) : ids;
         this.isStart = isStart;
+        //你是一个软件工程师，请给我解释下面这行代码的意思
+        //如果是顶点，那么返回顶点的迭代器，如果是边，那么返回边的迭代器
+        //这里的iteratorSupplier是一个函数式接口，返回一个迭代器
+        //这里的this.iteratorSupplier = () -> (Iterator<E>) (Vertex.class.isAssignableFrom(this.returnClass) ? this.getTraversal().getGraph().get().vertices(this.ids) : this.getTraversal().getGraph().get().edges(this.ids));
+        //等价于下面的代码
+        //if(Vertex.class.isAssignableFrom(this.returnClass)){
+        //    this.iteratorSupplier = () -> (Iterator<E>) this.getTraversal().getGraph().get().vertices(this.ids);
+        //}else{
+        //    this.iteratorSupplier = () -> (Iterator<E>) this.getTraversal().getGraph().get().edges(this.ids);
+        //}
+        //这里的this.iteratorSupplier是一个函数式接口，返回一个迭代器，这里的this.iteratorSupplier = () -> (Iterator<E>) this.getTraversal().getGraph().get().vertices(this.ids);
+        //是一个lambda表达式，等价于下面的代码
+        //this.iteratorSupplier = new Supplier<Iterator<E>>(){
+        //    @Override
+        //    public Iterator<E> get() {
+        //        return (Iterator<E>) this.getTraversal().getGraph().get().vertices(this.ids);
+        //    }
+        //}
+        //这里的this.iteratorSupplier是一个函数式接口，返回一个迭代器，这里的this.iteratorSupplier = () -> (Iterator<E>) this.getTraversal().getGraph().get().edges(this.ids);
+        //是一个lambda表达式，等价于下面的代码
+        //this.iteratorSupplier = new Supplier<Iterator<E>>(){
+        //    @Override
+        //    public Iterator<E> get() {
+        //        return (Iterator<E>) this.getTraversal().getGraph().get().edges(this.ids);
+        //    }
+        //}
+
         this.iteratorSupplier = () -> (Iterator<E>) (Vertex.class.isAssignableFrom(this.returnClass) ?
                 this.getTraversal().getGraph().get().vertices(this.ids) :
                 this.getTraversal().getGraph().get().edges(this.ids));
@@ -148,6 +175,7 @@ public class GraphStep<S, E extends Element> extends AbstractStep<S, E> implemen
     protected Traverser.Admin<E> processNextStart() {
         while (true) {
             if (this.iterator.hasNext()) {
+                //解释下 return 这行代码的意思
                 return this.isStart ? this.getTraversal().getTraverserGenerator().generate(this.iterator.next(), (Step) this, 1l) : this.head.split(this.iterator.next(), this);
             } else {
                 if (this.isStart) {

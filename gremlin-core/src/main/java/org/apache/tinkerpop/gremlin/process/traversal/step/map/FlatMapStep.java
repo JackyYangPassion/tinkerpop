@@ -45,8 +45,8 @@ public abstract class FlatMapStep<S, E> extends AbstractStep<S, E> {
                 return this.head.split(this.iterator.next(), this);
             } else {
                 closeIterator();
-                this.head = this.starts.next();
-                this.iterator = this.flatMap(this.head);
+                this.head = this.starts.next();           //此处调用了上一个step的next方法 获取traverser
+                this.iterator = this.flatMap(this.head);  //每一种step都有自己的flatMap方法
             }
         }
     }

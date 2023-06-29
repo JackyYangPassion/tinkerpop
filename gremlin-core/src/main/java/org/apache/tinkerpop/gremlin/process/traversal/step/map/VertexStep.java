@@ -61,6 +61,11 @@ public class VertexStep<E extends Element> extends FlatMapStep<Vertex, E> implem
         this.parameters.set(null, keyValues);
     }
 
+    /**
+     * 获取点/边 out/in/both 算子
+     * @param traverser
+     * @return
+     */
     @Override
     protected Iterator<E> flatMap(final Traverser.Admin<Vertex> traverser) {
         return Vertex.class.isAssignableFrom(this.returnClass) ?
