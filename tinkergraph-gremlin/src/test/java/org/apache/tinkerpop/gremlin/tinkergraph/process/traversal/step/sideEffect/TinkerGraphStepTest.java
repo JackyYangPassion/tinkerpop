@@ -87,6 +87,10 @@ public class TinkerGraphStepTest {
         g.addV("v1").property(T.id, "2").property("name", "peter").next();
         g.addV("v1").property(T.id, "3").property("name", "marko").next();
         g.addV("v1").property(T.id, "4").property("name", "peter").next();
+        /**
+         * has("name", "marko"): 是在 TinkerGraphStep 中过滤
+         * has(T.id, "1") == g.V("1"): 通过ID直接下推倒 TinkerGraph 中过滤
+         */
         int count = g.V().has("name", "marko").has(T.id, "1").count().next().intValue();
         assertEquals(1, count);
     }

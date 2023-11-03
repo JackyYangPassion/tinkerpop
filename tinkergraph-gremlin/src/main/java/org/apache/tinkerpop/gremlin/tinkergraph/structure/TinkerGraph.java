@@ -329,6 +329,7 @@ public final class TinkerGraph implements Graph {
         if (0 == ids.length) {
             iterator = new TinkerGraphIterator<>(elements.values().iterator());
         } else {
+            //可以认为 点边ID直接下推倒了存储层，减少了数据传递
             final List<Object> idList = Arrays.asList(ids);
 
             // TinkerGraph can take a Vertex/Edge or any object as an "id". If it is an Element then we just cast

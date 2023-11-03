@@ -175,7 +175,7 @@ public class GraphStep<S, E extends Element> extends AbstractStep<S, E> implemen
     protected Traverser.Admin<E> processNextStart() {
         while (true) {
             if (this.iterator.hasNext()) {
-                //解释下 return 这行代码的意思
+                //此处已经从底层 iterator 获取了一个元素，然后将其转换为 Traverser
                 return this.isStart ? this.getTraversal().getTraverserGenerator().generate(this.iterator.next(), (Step) this, 1l) : this.head.split(this.iterator.next(), this);
             } else {
                 if (this.isStart) {
